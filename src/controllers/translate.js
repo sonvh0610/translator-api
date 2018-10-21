@@ -14,8 +14,9 @@ router.post(
       if (_.isEmpty(targetLang)) throw new Error('Target language must be defined');
       if (_.isEmpty(text)) throw new Error('Translate content must be defined');
 
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${text}`;
 
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+      
       const result = await axios.get(url);
       const translatedText = _.get(result.data, '[0][0][0]', '');
 
